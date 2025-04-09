@@ -11,7 +11,9 @@
     <!-- Google Fonts (Example: Add specific fonts if desired) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Three.js CDN -->
     <script type="importmap">
         {
@@ -25,6 +27,13 @@
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="60">
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+        <!-- Optional: Add logo here -->
+        <!-- <img src="images/logo.png" alt="Loading..."> -->
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
         <div class="container">
@@ -37,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a> <!-- Removed active class initially, ScrollSpy handles it -->
+                        <a class="nav-link" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#designs">Designs</a>
@@ -46,7 +55,13 @@
                         <a class="nav-link" href="#fabrics">Fabrics</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#design-tool">Create Design</a>
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="#design-tool">Visualize</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -66,44 +81,48 @@
     </header>
 
     <!-- Designs Section -->
-    <section id="designs" class="py-5">
+    <section id="designs" class="py-5 fade-in-section">
         <div class="container">
             <h2 class="text-center mb-5">Featured Designs</h2>
             <div class="row g-4">
                 <!-- Design Cards Updated -->
-                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                <div class="col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm design-card">
-                        <img src="images/design 1.jpeg" class="card-img-top" alt="Sewing Design 1">
-                        <div class="card-body">
+                        <img src="images/design 1.jpeg" class="card-img-top" alt="Sewing Design 1" loading="lazy">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">Elegant Evening Wear</h5>
-                            <p class="card-text">A stunning design perfect for formal events.</p>
+                            <p class="card-text flex-grow-1">A stunning floor-length gown crafted from delicate silk charmeuse. Features intricate beadwork on the bodice and a flowing train. Ideal for black-tie events.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                <div class="col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm design-card">
-                        <img src="images/design 2.jpeg" class="card-img-top" alt="Sewing Design 2">
-                        <div class="card-body">
+                        <img src="images/design 2.jpeg" class="card-img-top" alt="Sewing Design 2" loading="lazy">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">Casual Summer Dress</h5>
-                            <p class="card-text">Light and airy, ideal for warm weather.</p>
+                            <p class="card-text flex-grow-1">A light and airy sundress made from breathable cotton poplin. Features a simple A-line silhouette and adjustable straps. Perfect for picnics or beach days.</p>
+                             <a href="#" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                <div class="col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm design-card">
-                        <img src="images/design 3.jpeg" class="card-img-top" alt="Sewing Design 3">
-                        <div class="card-body">
+                        <img src="images/design 3.jpeg" class="card-img-top" alt="Sewing Design 3" loading="lazy">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">Modern Geometric Quilt</h5>
-                            <p class="card-text">A contemporary take on traditional quilting.</p>
+                            <p class="card-text flex-grow-1">A contemporary take on traditional quilting using bold colors and sharp geometric patterns. Made with high-quality cotton fabrics. Adds a modern touch to any room.</p>
+                             <a href="#" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3"> <!-- Added 4th Card -->
+                <div class="col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm design-card">
-                        <img src="images/design 4.jpeg" class="card-img-top" alt="Sewing Design 4">
-                        <div class="card-body">
+                        <img src="images/design 4.jpeg" class="card-img-top" alt="Sewing Design 4" loading="lazy">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">Bohemian Chic Top</h5>
-                            <p class="card-text">Flowy and comfortable with intricate details.</p>
+                            <p class="card-text flex-grow-1">A flowy and comfortable top made from soft rayon challis. Features bell sleeves and delicate embroidery details around the neckline. Pairs well with jeans or skirts.</p>
+                             <a href="#" class="btn btn-sm btn-outline-primary mt-2">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -112,57 +131,87 @@
     </section>
 
     <!-- Fabrics Section -->
-    <section id="fabrics" class="bg-light py-5">
+    <section id="fabrics" class="py-5 bg-light fade-in-section">
         <div class="container">
-            <h2 class="text-center mb-5">Explore Fabrics</h2>
+            <h2 class="text-center mb-5">Discover Our Fabrics</h2>
             <div class="row g-4">
-                <!-- Fabric Info Cards Go Here -->
+                <!-- Fabric Info Cards Updated -->
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton</h5>
-                            <p class="card-text">Versatile, breathable, and easy to sew. Great for clothing, quilting, and home decor.</p>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Linen</h5>
-                            <p class="card-text">Strong, absorbent, and dries faster than cotton. Ideal for summer clothing and tablecloths.</p>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Silk</h5>
-                            <p class="card-text">Luxurious, smooth, and lustrous. Best for high-end fashion, scarves, and lingerie.</p>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Wool</h5>
-                            <p class="card-text">Warm, durable, and water-resistant. Used for outerwear, suits, and blankets.</p>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Polyester</h5>
-                            <p class="card-text">Durable, wrinkle-resistant, and quick-drying. Common in apparel, upholstery, and ropes.</p>
+                    <div class="card h-100 fabric-card">
+                         <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-leaf me-2 text-success"></i>Cotton</h5>
+                            <p class="card-text"><strong>Best For:</strong> Everyday apparel, quilting, home decor (curtains, pillows). <br><strong>Pros:</strong> Breathable, soft, easy to care for, versatile. <br><strong>Cons:</strong> Prone to wrinkling, can shrink.</p>
                          </div>
                     </div>
                 </div>
                  <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
+                    <div class="card h-100 fabric-card">
                         <div class="card-body">
-                            <h5 class="card-title">Denim</h5>
-                            <p class="card-text">Sturdy cotton twill fabric. Famous for jeans, jackets, and workwear.</p>
+                            <h5 class="card-title"><i class="fas fa-water me-2 text-info"></i>Linen</h5>
+                            <p class="card-text"><strong>Best For:</strong> Summer clothing (trousers, shirts, dresses), tablecloths, napkins.<br><strong>Pros:</strong> Highly breathable, strong, absorbent, gets softer with washes.<br><strong>Cons:</strong> Wrinkles very easily, can be expensive.</p>
                         </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 fabric-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-gem me-2 text-danger"></i>Silk</h5>
+                            <p class="card-text"><strong>Best For:</strong> Luxury apparel (gowns, blouses), scarves, lingerie, ties.<br><strong>Pros:</strong> Luxurious feel, beautiful drape, strong natural fiber.<br><strong>Cons:</strong> Expensive, requires delicate care, water spots easily.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 fabric-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-shield-alt me-2 text-secondary"></i>Wool</h5>
+                            <p class="card-text"><strong>Best For:</strong> Outerwear (coats, jackets), suits, sweaters, blankets.<br><strong>Pros:</strong> Very warm, durable, water-resistant, wrinkle-resistant.<br><strong>Cons:</strong> Can be itchy, requires special care (dry clean or hand wash).</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 fabric-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-cogs me-2 text-primary"></i>Polyester</h5>
+                            <p class="card-text"><strong>Best For:</strong> Activewear, blended apparel, upholstery, fleece.<br><strong>Pros:</strong> Durable, wrinkle-resistant, quick-drying, retains color well.<br><strong>Cons:</strong> Not breathable, can feel synthetic, melts at high heat.</p>
+                         </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 fabric-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-hard-hat me-2 text-warning"></i>Denim</h5>
+                            <p class="card-text"><strong>Best For:</strong> Jeans, jackets, overalls, bags, sturdy workwear.<br><strong>Pros:</strong> Extremely durable, versatile look, fades uniquely over time.<br><strong>Cons:</strong> Can be stiff initially, heavy, takes long to dry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 fade-in-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Services</h2>
+            <div class="row text-center g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item p-4 shadow-sm rounded bg-white h-100">
+                        <div class="icon mb-3 fs-1 text-primary"><i class="fas fa-cut"></i></div>
+                        <h5 class="mb-3">Custom Tailoring</h5>
+                        <p class="text-muted">Perfectly fitted garments designed and sewn specifically for you. From suits to dresses, we ensure a flawless fit.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item p-4 shadow-sm rounded bg-white h-100">
+                         <div class="icon mb-3 fs-1 text-primary"><i class="fas fa-sync-alt"></i></div>
+                        <h5 class="mb-3">Alterations & Repairs</h5>
+                        <p class="text-muted">Extend the life of your favorite clothes. We offer expert alterations, repairs, hemming, and resizing services.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item p-4 shadow-sm rounded bg-white h-100">
+                         <div class="icon mb-3 fs-1 text-primary"><i class="fas fa-drafting-compass"></i></div>
+                        <h5 class="mb-3">Design Consultation</h5>
+                        <p class="text-muted">Have an idea? We help bring your vision to life with professional design advice, fabric selection, and pattern creation.</p>
                     </div>
                 </div>
             </div>
@@ -170,29 +219,133 @@
     </section>
 
     <!-- Design Tool Section -->
-    <section id="design-tool" class="py-5">
+    <section id="design-tool" class="py-5 bg-light fade-in-section">
         <div class="container">
             <h2 class="text-center mb-4">Visualize Your Design</h2>
             <p class="text-center lead mb-5">Rotate and inspect the model below. Use this space to imagine your next creation.</p>
             <div class="row">
                 <div class="col-12">
-                    <!-- Container for 3D Model Viewer -->
-                    <div id="model-viewer-container" style="width: 100%; height: 60vh; background-color: #e9ecef; border-radius: 8px; position: relative; overflow: hidden;">
-                        <!-- Canvas will be inserted here by Three.js -->
+                    <div id="model-viewer-container" style="width: 100%; height: 60vh; background-color: #ffffff; border-radius: 8px; position: relative; overflow: hidden; border: 1px solid #ddd;">
                          <div id="loading-indicator" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2em; color: #6c757d;">Loading 3D Model...</div>
                     </div>
-                    <!-- Placeholder for potential future drawing tools -->
-                    <!-- <div class="text-center mt-4">
-                        <button class="btn btn-secondary me-2">Draw Tool</button>
-                        <button class="btn btn-secondary me-2">Fabric Picker</button>
-                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 fade-in-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Clients Say</h2>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="testimonial-card p-5 rounded bg-white shadow-sm text-center col-md-8 mx-auto">
+                            <p class="lead fst-italic mb-4">"The attention to detail was incredible! My custom dress fit like a glove and I received so many compliments. Highly recommend Fikra Stitching!"</p>
+                            <img src="images/images (1).jpeg" alt="Client 1" class="rounded-circle mb-2" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy">
+                            <h6 class="mb-0 fw-bold">Sarah L.</h6>
+                            <small class="text-muted">Happy Customer</small>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card p-5 rounded bg-white shadow-sm text-center col-md-8 mx-auto">
+                            <p class="lead fst-italic mb-4">"They saved my favorite jacket! The repair was seamless and the alteration made it fit better than ever. Professional and quick service."</p>
+                             <img src="images/images (2).jpeg" alt="Client 2" class="rounded-circle mb-2" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy">
+                            <h6 class="mb-0 fw-bold">Michael P.</h6>
+                            <small class="text-muted">Satisfied Client</small>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card p-5 rounded bg-white shadow-sm text-center col-md-8 mx-auto">
+                            <p class="lead fst-italic mb-4">"From consultation to the final product, the process was smooth and enjoyable. Their design advice was invaluable. I love my unique outfit!"</p>
+                            <img src="images/images.jpeg" alt="Client 3" class="rounded-circle mb-2" style="width: 80px; height: 80px; object-fit: cover;" loading="lazy">
+                            <h6 class="mb-0 fw-bold">Aisha K.</h6>
+                            <small class="text-muted">Delighted Customer</small>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.3); border-radius: 50%; padding: 15px;"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.3); border-radius: 50%; padding: 15px;"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section Placeholder -->
+    <section id="blog" class="py-5 fade-in-section">
+        <div class="container">
+            <h2 class="text-center mb-5">From Our Blog</h2>
+            <div class="row g-4">
+                <!-- Placeholder Blog Post Cards -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 blog-card">
+                        <img src="images/1.png" class="card-img-top" alt="Blog Post 1" loading="lazy">
+                        <div class="card-body">
+                            <small class="text-muted">May 10, 2025 | Tips & Tricks</small>
+                            <h5 class="card-title mt-2">Choosing the Right Needle for Your Fabric</h5>
+                            <p class="card-text">Learn how different needles affect your stitching and which one to pick for common fabrics like cotton, denim, and silk...</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                     <div class="card h-100 blog-card">
+                        <img src="images/2.png" class="card-img-top" alt="Blog Post 2" loading="lazy">
+                        <div class="card-body">
+                            <small class="text-muted">May 5, 2025 | Trends</small>
+                            <h5 class="card-title mt-2">Summer Sewing Trends: What to Create</h5>
+                            <p class="card-text">Get inspired with the latest summer fashion trends you can sew yourself, from flowy dresses to lightweight tops...</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4">
+                     <div class="card h-100 blog-card">
+                        <img src="images/3.png" class="card-img-top" alt="Blog Post 3" loading="lazy">
+                        <div class="card-body">
+                             <small class="text-muted">April 28, 2025 | Inspiration</small>
+                            <h5 class="card-title mt-2">Upcycling Old Clothes: A Sustainable Project</h5>
+                            <p class="card-text">Discover creative ways to give your old garments a new life with simple sewing modifications and techniques...</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-primary">Visit Our Blog</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="py-5 text-center fade-in-section" style="background-color: var(--primary-color); color: var(--light-text);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                     <h2 class="mb-3" style="color: var(--light-text);">Stay Inspired!</h2>
+                     <p class="lead mb-4" style="color: rgba(255, 255, 255, 0.8);">Join our newsletter for exclusive sewing tips, early access to new designs, special promotions, and a dose of creative inspiration delivered to your inbox.</p>
+                     <form action="#" method="post" class="row g-2 justify-content-center">
+                         <div class="col-md-6 col-lg-5">
+                             <label for="newsletterEmailSection" class="visually-hidden">Email address</label>
+                             <input type="email" class="form-control form-control-lg" id="newsletterEmailSection" placeholder="Enter your email address" required style="background-color: rgba(255,255,255,0.2); border: none; color: white;">
+                         </div>
+                         <div class="col-auto">
+                             <button type="submit" class="btn btn-lg btn-light" style="color: var(--primary-color);">Subscribe Now</button>
+                         </div>
+                     </form>
+                     <small class="d-block mt-3" style="color: rgba(255, 255, 255, 0.6);">We respect your privacy. Unsubscribe anytime.</small>
                 </div>
             </div>
         </div>
     </section>
 
      <!-- Contact Section -->
-    <section id="contact" class="bg-light py-5">
+    <section id="contact" class="py-5 bg-light fade-in-section">
         <div class="container">
             <h2 class="text-center mb-5">Get In Touch</h2>
             <div class="row">
@@ -219,11 +372,84 @@
 
 
     <!-- Footer -->
-    <footer class="py-4 bg-dark text-white text-center">
-        <div class="container">
-            <p class="mb-0">Copyright &copy; 2024 Fikra Stitching. All Rights Reserved.</p>
+    <footer class="pt-5 pb-4 bg-dark text-white fade-in-section">
+        <div class="container text-center text-md-start">
+            <div class="row gy-4">
+                <div class="col-md-4 col-lg-4 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                       <img src="images/logo.png" alt="Fikra Stitching Logo" height="30" class="me-2" style="filter: brightness(0) invert(1);"> Fikra Stitching
+                    </h6>
+                    <p class="text-white-50">
+                        Crafting unique designs and perfect fits. Your vision, expertly stitched.
+                        Let us bring your sewing ideas to life with quality fabrics and meticulous tailoring.
+                    </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Sections</h6>
+                    <p><a href="#designs" class="text-reset footer-link">Designs</a></p>
+                    <p><a href="#fabrics" class="text-reset footer-link">Fabrics</a></p>
+                    <p><a href="#services" class="text-reset footer-link">Services</a></p>
+                    <p><a href="#design-tool" class="text-reset footer-link">Visualize</a></p>
+                    <p><a href="#blog" class="text-reset footer-link">Blog</a></p>
+                </div>
+
+                <div class="col-md-3 col-lg-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Useful Links</h6>
+                    <p><a href="#contact" class="text-reset footer-link">Contact Us</a></p>
+                    <p><a href="#!" class="text-reset footer-link">FAQ</a></p> 
+                    <p><a href="#!" class="text-reset footer-link">Privacy Policy</a></p>
+                    <p><a href="#!" class="text-reset footer-link">Terms of Service</a></p>
+                </div>
+
+                <div class="col-md-3 col-lg-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p class="text-white-50"><i class="fas fa-home me-3"></i> 123 Sewing Lane, Stitch City, SC 12345</p>
+                    <p class="text-white-50"><i class="fas fa-envelope me-3"></i> info@fikrastitching.com</p>
+                    <p class="text-white-50"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                    <p class="text-white-50"><i class="fas fa-print me-3"></i> + 01 234 567 89</p> 
+                </div>
+            </div>
+             <hr class="my-4">
+
+             <!-- Newsletter Signup -->
+            <div class="text-center py-3">
+                 <h6 class="text-uppercase fw-bold mb-3 text-white">Subscribe to our Newsletter</h6>
+                 <p class="text-white-50 mb-3">Get stitching tips, new design alerts, and special offers directly in your inbox!</p>
+                 <form action="#" method="post" class="row g-2 justify-content-center">
+                     <div class="col-auto">
+                         <label for="newsletterEmail" class="visually-hidden">Email address</label>
+                         <input type="email" class="form-control form-control-sm" id="newsletterEmail" placeholder="Enter your email" required style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); color: white;">
+                     </div>
+                     <div class="col-auto">
+                         <button type="submit" class="btn btn-sm btn-primary">Subscribe</button>
+                     </div>
+                 </form>
+             </div>
+             <hr class="my-4">
+
+             <!-- Social media -->
+            <div class="text-center mb-4">
+                <p class="mb-3">Connect with us:</p>
+                <a href="#!" class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button"><i class="fab fa-facebook-f"></i></a>
+                <a href="#!" class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button"><i class="fab fa-twitter"></i></a>
+                <a href="#!" class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button"><i class="fab fa-instagram"></i></a>
+                <a href="#!" class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#!" class="btn btn-outline-light btn-floating m-1 rounded-circle" role="button"><i class="fab fa-pinterest"></i></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center p-3 text-white-50" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2025 Copyright:
+            <a class="text-reset fw-bold" href="#">FikraStitching.com</a>
         </div>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#" id="scrollToTopBtn" class="btn btn-primary rounded-circle shadow-lg" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

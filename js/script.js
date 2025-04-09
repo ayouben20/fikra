@@ -4,11 +4,44 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
+// --- Preloader Hiding --- //
+let preloaderHidden = false;
+const preloader = document.getElementById('preloader');
+
+function hidePreloader() {
+    if (!preloaderHidden && preloader) {
+        preloader.classList.add('hidden');
+        preloaderHidden = true;
+    }
+}
+
+window.addEventListener('load', hidePreloader);
+
+// Failsafe: Hide preloader after a few seconds anyway
+setTimeout(hidePreloader, 6000); // Hide after 6 seconds max
+
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Add any initialization JavaScript here
     console.log('DOM fully loaded and parsed');
 
-    // Smooth scrolling for anchor links
+    // --- Navbar Scroll Effect --- //
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { // Add class after scrolling 50px
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+    }
+
+    // --- Initialize Bootstrap Tooltips --- //
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+    // --- Smooth Scrolling (Keep existing code, ensure offset matches CSS) --- //
     document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -16,32 +49,68 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const targetElement = document.querySelector(targetId);
 
             if(targetElement) {
-                 // Calculate position considering the fixed navbar height (adjust 70 if navbar height/offset changes)
-                 const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 70;
+                 const offset = document.querySelector('.navbar').offsetHeight || 70; // Get actual navbar height or fallback
+                 const elementPosition = targetElement.getBoundingClientRect().top;
+                 const offsetPosition = elementPosition + window.pageYOffset - offset;
 
                 window.scrollTo({
-                    top: offsetTop,
+                    top: offsetPosition,
                     behavior: 'smooth'
                 });
 
-                // Optional: Update URL hash without jumping (if desired)
-                // history.pushState(null, null, targetId);
-
-                // Optional: Close mobile navbar after click
                 const navbarToggler = document.querySelector('.navbar-toggler');
                 const navbarCollapse = document.querySelector('.navbar-collapse');
                 if (navbarToggler && navbarCollapse.classList.contains('show')) {
-                    navbarToggler.click(); // Simulate click to close
+                    navbarToggler.click();
                 }
             }
         });
     });
 
-    // Optional: Activate ScrollSpy manually if needed, though data attributes usually suffice
-    // var scrollSpy = new bootstrap.ScrollSpy(document.body, {
-    //     target: '#navbarNav',
-    //     offset: 60 
-    // })
+    // --- Scroll to Top Button Logic --- //
+    const scrollTopBtn = document.getElementById('scrollToTopBtn');
+
+    if (scrollTopBtn) {
+        // Show/Hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show after scrolling 300px
+                scrollTopBtn.style.display = 'block';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+
+        // Smooth scroll to top on click
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // --- Fade-in Animation on Scroll --- //
+    const observerOptions = {
+        root: null, // relative to document viewport
+        rootMargin: '0px',
+        threshold: 0.1 // trigger when 10% of the element is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Optional: Stop observing once visible
+            } // No need for an else clause if we only add the class
+        });
+    };
+
+    const intersectionObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+    document.querySelectorAll('.fade-in-section').forEach(section => {
+        intersectionObserver.observe(section);
+    });
 
     // --- Three.js 3D Model Viewer --- //
     const container = document.getElementById('model-viewer-container');
@@ -53,70 +122,110 @@ document.addEventListener('DOMContentLoaded', (event) => {
         function init3D() {
             // Scene
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xe9ecef); // Match container background
+            scene.background = new THREE.Color(0xF8F9FA); // Match light-bg variable
 
             // Camera
-            camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(0, 1.6, 3); // Adjust initial camera position (x, y, z)
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0.5, 1.6, 3.5); // Adjust initial camera position slightly out and to the side
 
             // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // Use alpha for potentially transparent bg
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true; // Enable shadows
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             container.appendChild(renderer.domElement);
 
             // Controls
             controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; // Smooth camera movement
+            controls.enableDamping = true;
             controls.dampingFactor = 0.05;
-            controls.screenSpacePanning = false;
-            controls.minDistance = 1; // Zoom limits
-            controls.maxDistance = 10;
-            controls.target.set(0, 1, 0); // Point controls towards the model's center (adjust y based on model height)
+            controls.screenSpacePanning = false; // Panning in screen space can feel weird for models
+            controls.minDistance = 1.5; // Prevent zooming too close
+            controls.maxDistance = 15;
+            controls.target.set(0, 1, 0); // Initial target, will be adjusted after load
+            controls.maxPolarAngle = Math.PI / 1.9; // Prevent looking from below model
+            controls.minPolarAngle = Math.PI / 4; // Prevent looking directly from top
+            controls.enablePan = false; // Disable panning for simpler mobile interaction
             controls.update();
 
             // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Soft white light
-            scene.add(ambientLight);
+            scene.add(new THREE.AmbientLight(0xffffff, 1.0)); // Increased ambient light
 
             const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(5, 10, 7.5);
+            directionalLight.position.set(8, 15, 10);
+            directionalLight.castShadow = true;
+            // Shadow properties
+            directionalLight.shadow.mapSize.width = 1024;
+            directionalLight.shadow.mapSize.height = 1024;
+            directionalLight.shadow.camera.near = 0.5;
+            directionalLight.shadow.camera.far = 50;
             scene.add(directionalLight);
+
+            // Optional: Add a subtle hemisphere light for softer fill
+            const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444, 0.6 );
+            hemiLight.position.set( 0, 20, 0 );
+            scene.add( hemiLight );
+
+             // Optional: Ground plane for shadows
+            // const groundGeo = new THREE.PlaneGeometry( 10, 10 );
+            // const groundMat = new THREE.ShadowMaterial({ opacity: 0.3 }); // Material that only receives shadows
+            // const ground = new THREE.Mesh( groundGeo, groundMat );
+            // ground.rotation.x = - Math.PI / 2;
+            // ground.receiveShadow = true;
+            // scene.add( ground );
 
             // Load Model
             const loader = new FBXLoader();
             loader.load(
-                'model/girl_character.fbx', // Path to your model
+                'model/girl_character.fbx',
                 (object) => {
                     model = object;
-                    // Scale model if needed
-                    // model.scale.set(0.01, 0.01, 0.01);
 
-                    // Center the model
+                    let modelHeight = 0;
+                    model.traverse((child) => { // Ensure shadows are cast and received
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            // Optional: Adjust material properties if needed
+                            // child.material.metalness = 0.1;
+                            // child.material.roughness = 0.5;
+                        }
+                    });
+
+                    // Scale and Center model
                     const box = new THREE.Box3().setFromObject(model);
+                    const size = box.getSize(new THREE.Vector3());
+                    modelHeight = size.y;
                     const center = box.getCenter(new THREE.Vector3());
-                    model.position.sub(center); // Center the model's geometry at origin
-                    model.position.y = 0; // Adjust vertical position if needed (e.g., place feet at y=0)
+
+                    // Simple scaling: Adjust model so its height is roughly 2 units
+                    const scaleFactor = 2.0 / modelHeight;
+                    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+                    // Recalculate bounds after scaling
+                    const scaledBox = new THREE.Box3().setFromObject(model);
+                    const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
+
+                    // Reposition model so its bottom is near y=0
+                    model.position.x = -scaledCenter.x;
+                    model.position.y = -scaledBox.min.y; // Align bottom of bounding box to y=0
+                    model.position.z = -scaledCenter.z;
 
                     scene.add(model);
 
-                    // Adjust camera target and potentially position based on loaded model size
-                    const boundingBox = new THREE.Box3().setFromObject(model);
-                    const modelHeight = boundingBox.max.y - boundingBox.min.y;
-                    controls.target.set(0, modelHeight / 2, 0); // Aim camera at model center
-                    // You might want to adjust camera.position.z based on model size too
-                    camera.position.z = modelHeight * 1.5; // Example: Set distance based on height
+                    // Adjust camera target and position based on loaded model size
+                    controls.target.set(0, modelHeight * scaleFactor / 2, 0); // Aim camera at scaled model center y
+                    camera.position.z = modelHeight * scaleFactor * 1.8; // Adjust distance based on scaled height
                     controls.update();
 
-                    // Hide loading indicator
                     if (loadingIndicator) {
                         loadingIndicator.style.display = 'none';
                     }
                     console.log('FBX model loaded successfully');
                 },
                 (xhr) => {
-                    // Optional: Loading progress
-                    const percentComplete = (xhr.loaded / xhr.total) * 100;
+                    const percentComplete = xhr.total > 0 ? (xhr.loaded / xhr.total) * 100 : 0;
                     console.log(percentComplete + '% loaded');
                     if (loadingIndicator) {
                          loadingIndicator.textContent = `Loading 3D Model: ${Math.round(percentComplete)}%`;
@@ -140,20 +249,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         function animate() {
             requestAnimationFrame(animate);
-            controls.update(); // Only required if controls.enableDamping = true
+            controls.update();
             renderer.render(scene, camera);
         }
 
         function onWindowResize() {
+            if (!container) return; // Ensure container exists
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(container.clientWidth, container.clientHeight);
         }
 
-        // Initialize the 3D viewer
         init3D();
 
     } else {
         console.error('Model viewer container not found!');
     }
+
 }); 

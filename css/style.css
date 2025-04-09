@@ -2,79 +2,136 @@
 :root {
     --primary-color: #6D4C41; /* Brown */
     --secondary-color: #A1887F; /* Lighter Brown */
-    --accent-color: #FFAB91; /* Light Peach/Orange */
-    --light-bg: #F5F5F5; /* Very Light Gray */
-    --dark-text: #3E2723; /* Dark Brown */
+    --accent-color: #E6A486; /* Softer Peach/Accent */
+    --light-bg: #F8F9FA;
+    --white-bg: #FFFFFF;
+    --dark-text: #3E2723;
     --light-text: #FFFFFF;
+    --muted-text: #6c757d;
     --heading-font: 'Playfair Display', serif;
     --body-font: 'Roboto', sans-serif;
+    --section-gradient: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(248,249,250,0.3) 100%); /* Subtle gradient for sections */
 }
 
 /* General Styles */
 body {
-    padding-top: 70px; /* Increased padding for taller navbar */
+    padding-top: 70px;
     font-family: var(--body-font);
     color: var(--dark-text);
-    background-color: var(--light-bg);
-    font-weight: 300;
+    background-color: var(--white-bg);
+    font-weight: 400;
+    line-height: 1.7;
 }
 
 section {
-    scroll-margin-top: 70px; /* Match navbar height */
-    padding: 60px 0;
+    scroll-margin-top: 70px;
+    padding: 80px 0;
+    position: relative; /* Needed for potential pseudo-elements */
+    background: var(--white-bg); /* Default background */
+}
+
+/* Apply subtle gradient to non-light sections */
+section:not(.bg-light):not(#newsletter):not(.hero-section) {
+     background: var(--section-gradient), var(--white-bg);
+}
+
+section.bg-light {
+    padding: 80px 0;
+    background-color: var(--light-bg) !important;
+}
+
+section:last-of-type {
+     margin-bottom: 0; /* Ensure no extra margin below last section before footer */
+     padding-bottom: 80px;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--heading-font);
     font-weight: 700;
     color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem; /* More space below section headings */
 }
 
 .lead {
     font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--muted-text);
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 50px; /* Rounded buttons */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-primary:hover, .btn-primary:focus {
     background-color: var(--dark-text);
     border-color: var(--dark-text);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
     color: var(--light-text);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-secondary:hover, .btn-secondary:focus {
-    background-color: #8D6E63; /* Slightly darker secondary */
+    background-color: #8D6E63;
     border-color: #8D6E63;
     color: var(--light-text);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    transform: translateY(-1px); /* Subtle lift */
 }
 
 /* Navbar */
 .navbar {
-    background-color: #ffffff !important; /* Ensure white background */
+    background-color: var(--white-bg) !important;
     border-bottom: 1px solid #eee;
+    transition: padding 0.3s ease;
 }
 
 .navbar-brand img {
-    max-height: 45px; /* Adjust logo size */
+    max-height: 45px;
+    border-radius: 50%; /* Make logo round */
+    border: 1px solid var(--secondary-color); /* Optional: Add subtle border */
 }
 
 .navbar .nav-link {
     color: var(--dark-text) !important;
-    font-weight: 400;
-    margin: 0 5px;
-    padding: 8px 15px;
-    border-radius: 4px;
+    font-weight: 500; /* Slightly bolder */
+    margin: 0 8px;
+    padding: 10px 15px;
+    border-radius: 50px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
 }
 
 .navbar .nav-link:hover,
@@ -83,61 +140,175 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--light-text) !important;
 }
 
+/* Add shadow on scroll - JS will add/remove this class */
+.navbar-scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.95) !important; /* Slight transparency */
+    backdrop-filter: blur(5px); /* Frosted glass effect (browser support varies) */
+}
 
 /* Hero Section */
 .hero-section {
-    height: 85vh; /* Make hero taller */
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('../images/fond d\'ecran.jpeg') no-repeat center center; /* Use correct background */
+    height: 90vh;
+    /* Darker overlay, removed fixed background as it can hinder performance/feel */
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)), url('../images/fond d\'ecran.jpeg') no-repeat center center;
     background-size: cover;
-    color: var(--light-text); /* Use variable */
+    color: var(--light-text);
 }
 
 .hero-section h1 {
-    font-size: 4.5rem;
+    font-size: 5rem;
     font-weight: 700;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
     color: var(--light-text);
 }
 
 .hero-section .lead {
-    font-size: 1.6rem;
-    margin-bottom: 2.5rem;
-    color: var(--light-text);
+    font-size: 1.7rem;
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-section .btn-primary {
+    /* Make hero button stand out more */
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--dark-text);
+    padding: 12px 35px;
+    font-size: 1rem;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: var(--light-text);
+    border-color: var(--light-text);
+    color: var(--dark-text);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Designs Section */
 #designs {
-   background-color: #ffffff;
+   background-color: var(--light-bg);
+}
+
+.design-card {
+    overflow: hidden; /* Ensure image hover effect stays within card */
 }
 
 .design-card img {
-    height: 250px; /* Fixed height for design images */
-    object-fit: cover; /* Ensure images cover the area well */
+    height: 280px; /* Slightly taller images */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.design-card:hover img {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.design-card .card-body {
+    background-color: var(--white-bg);
 }
 
 /* Fabrics Section */
 #fabrics {
-    background-color: var(--light-bg);
+    background-color: var(--white-bg);
 }
 
-#fabrics .card {
-    background-color: #ffffff;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+.fabric-card {
+     background-color: var(--white-bg);
+     border: 1px solid #e8e8e8; /* Slightly softer border */
+     box-shadow: none;
+}
+
+.fabric-card .card-title i {
+    opacity: 0.7;
+}
+
+/* Services Section */
+#services {
+    background-color: var(--white-bg);
+}
+
+.service-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent; /* Add border for transition */
+    background-clip: padding-box; /* Important for border transition */
+}
+
+.service-item:hover {
+     transform: translateY(-8px); /* More lift */
+     box-shadow: 0 10px 25px rgba(109, 76, 65, 0.15) !important; /* Primary color shadow */
+     border-color: var(--accent-color); /* Add accent border on hover */
+}
+
+.service-item .icon {
+    color: var(--accent-color); /* Use accent color for icons */
 }
 
 /* Design Tool Section */
 #design-tool {
-    background-color: #ffffff;
+    background-color: var(--light-bg);
 }
 
 #model-viewer-container {
-    border: 1px solid #ddd;
+    border: none; /* Remove border for cleaner look */
+    background-color: var(--light-bg); /* Match section background */
     cursor: grab;
 }
 
 #model-viewer-container:active {
     cursor: grabbing;
+}
+
+/* Testimonials Section */
+#testimonials {
+    background-color: var(--white-bg);
+}
+
+.testimonial-card {
+    border: 1px solid #eee;
+}
+
+#testimonialCarousel .carousel-control-prev-icon,
+#testimonialCarousel .carousel-control-next-icon {
+   filter: invert(1); /* Make default Bootstrap icons black */
+   background-color: rgba(0, 0, 0, 0.5) !important; /* Darker background for better visibility */
+}
+
+/* Blog Section */
+#blog {
+    background-color: var(--white-bg);
+}
+
+.blog-card img {
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.blog-card:hover img {
+    opacity: 0.85;
+}
+
+.blog-card .card-title {
+    font-size: 1.25rem;
+}
+
+/* Newsletter Section */
+#newsletter input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#newsletter input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: none; /* Remove default bootstrap focus glow */
+    color: white;
+}
+
+#newsletter .btn-light:hover {
+    background-color: #f8f9fa; /* Keep light but slightly change */
+    color: var(--dark-text);
 }
 
 /* Contact Section */
@@ -148,70 +319,150 @@ h1, h2, h3, h4, h5, h6 {
 #contact form .form-control {
     border-radius: 4px;
     border: 1px solid #ccc;
+    padding: 12px 15px; /* Taller inputs */
 }
 
 #contact form .form-control:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(109, 76, 65, 0.25); /* Primary color focus */
+    box-shadow: 0 0 0 0.2rem rgba(109, 76, 65, 0.25);
 }
 
 /* Footer */
 footer {
     background-color: var(--dark-text);
-    color: var(--secondary-color);
-    padding: 30px 0;
+    color: rgba(255, 255, 255, 0.7); /* Default footer text slightly lighter */
+    padding-top: 5rem;
 }
 
-/* Card Styles - General */
+footer h6 {
+    color: var(--light-text); /* White headings */
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+footer p {
+    color: rgba(255, 255, 255, 0.65); /* Slightly darker than default */
+    font-size: 0.95rem;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.65) !important;
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-color) !important;
+    text-decoration: none; /* Keep no underline */
+    opacity: 1;
+}
+
+footer .btn-floating {
+    width: 40px;
+    height: 40px;
+    line-height: 40px; /* Center icon vertically */
+    text-align: center;
+    font-size: 1.1rem;
+    border-width: 1px;
+}
+
+footer .btn-floating:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--dark-text);
+}
+
+footer hr {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Card Styles - General Override */
 .card {
     border: none;
     border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Default shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12) !important;
 }
 
 .card-title {
     color: var(--primary-color);
     font-family: var(--heading-font);
     margin-bottom: 0.75rem;
+    font-weight: 700;
 }
 
+/* Scroll to Top Button */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Ensure it's above other content */
+    width: 50px;   /* Ensure consistent size */
+    height: 50px;
+    padding: 0; /* Remove default button padding */
+    font-size: 1.2rem; /* Adjust icon size */
+    line-height: 50px; /* Center icon vertically */
+    text-align: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+    opacity: 1;
+}
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
+    h2 {
+        font-size: 2.2rem;
+    }
     .hero-section h1 {
-        font-size: 3.5rem;
+        font-size: 4rem;
     }
     .hero-section .lead {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
     .design-card img {
-        height: 200px;
+        height: 220px;
     }
 }
 
 @media (max-width: 768px) {
     body {
-        padding-top: 65px; /* Adjust if navbar height changes */
+        padding-top: 65px;
     }
     section {
         scroll-margin-top: 65px;
-        padding: 40px 0;
+        padding: 60px 0;
+    }
+     h2 {
+        font-size: 2rem;
     }
     .hero-section h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
     }
     .hero-section .lead {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
      .navbar .nav-link {
         margin: 5px 0;
         text-align: center;
-        background-color: #f8f9fa; /* Add background for clarity */
+        background-color: transparent; /* Remove bg */
+        display: block; /* Ensure they take full width */
+        padding: 10px;
+    }
+    .navbar-collapse {
+        background-color: rgba(255, 255, 255, 0.95); /* Add bg to collapsed menu */
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
     .navbar .nav-link:hover,
     .navbar .nav-link.active {
@@ -219,18 +470,98 @@ footer {
         color: var(--light-text) !important;
     }
     .design-card img {
-        height: 180px;
+        height: 200px;
+    }
+    footer .text-md-start { /* Center footer content on smaller screens */
+        text-align: center !important;
+    }
+    footer .mx-auto {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 
 @media (max-width: 576px) {
     .hero-section {
-        height: 70vh;
+        height: 80vh;
     }
     .hero-section h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     .hero-section .lead {
         font-size: 1.1rem;
     }
+     .btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Preloader Styles */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--white-bg); /* Or use a theme color */
+    z-index: 9999; /* Highest z-index */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    opacity: 1;
+    visibility: visible;
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#preloader .spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--secondary-color); /* Spinner color */
+    border-top-color: var(--primary-color); /* Top part color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Optional: Styles if using logo in preloader */
+/* #preloader img {
+    max-width: 100px;
+    animation: pulse 1.5s ease-in-out infinite;
+} */
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+} */
+
+/* Fade-in Animation */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(50px); /* Start slightly lower */
+    transition: opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1), transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); /* Smoother cubic-bezier timing */
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+     color: var(--dark-text);
+     text-decoration: none; /* Keep underline off by default, add only where needed */
 } 
