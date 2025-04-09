@@ -8,21 +8,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- Basic empty favicon to prevent 404 -->
+    <!-- Google Fonts (Example: Add specific fonts if desired) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Three.js CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
+            }
+        }
+    </script>
+    <link rel="icon" href="images/logo.png"> <!-- Use logo as favicon -->
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="60">
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">Fikra Stitching</a>
+            <a class="navbar-brand" href="#">
+                <img src="images/logo.png" alt="Fikra Stitching Logo" height="40"> <!-- Logo Added -->
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="#">Home</a> <!-- Removed active class initially, ScrollSpy handles it -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#designs">Designs</a>
@@ -55,31 +70,40 @@
         <div class="container">
             <h2 class="text-center mb-5">Featured Designs</h2>
             <div class="row g-4">
-                <!-- Design Cards Go Here -->
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/350x200.png?text=Design+1" class="card-img-top" alt="Sewing Design 1">
+                <!-- Design Cards Updated -->
+                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                    <div class="card h-100 shadow-sm design-card">
+                        <img src="images/design 1.jpeg" class="card-img-top" alt="Sewing Design 1">
                         <div class="card-body">
                             <h5 class="card-title">Elegant Evening Wear</h5>
                             <p class="card-text">A stunning design perfect for formal events.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/350x200.png?text=Design+2" class="card-img-top" alt="Sewing Design 2">
+                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                    <div class="card h-100 shadow-sm design-card">
+                        <img src="images/design 2.jpeg" class="card-img-top" alt="Sewing Design 2">
                         <div class="card-body">
                             <h5 class="card-title">Casual Summer Dress</h5>
                             <p class="card-text">Light and airy, ideal for warm weather.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <img src="https://via.placeholder.com/350x200.png?text=Design+3" class="card-img-top" alt="Sewing Design 3">
+                <div class="col-md-6 col-lg-3"> <!-- Changed to col-lg-3 for 4 cards -->
+                    <div class="card h-100 shadow-sm design-card">
+                        <img src="images/design 3.jpeg" class="card-img-top" alt="Sewing Design 3">
                         <div class="card-body">
                             <h5 class="card-title">Modern Geometric Quilt</h5>
                             <p class="card-text">A contemporary take on traditional quilting.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3"> <!-- Added 4th Card -->
+                    <div class="card h-100 shadow-sm design-card">
+                        <img src="images/design 4.jpeg" class="card-img-top" alt="Sewing Design 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Bohemian Chic Top</h5>
+                            <p class="card-text">Flowy and comfortable with intricate details.</p>
                         </div>
                     </div>
                 </div>
@@ -148,21 +172,20 @@
     <!-- Design Tool Section -->
     <section id="design-tool" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Create Your Design</h2>
+            <h2 class="text-center mb-4">Visualize Your Design</h2>
+            <p class="text-center lead mb-5">Rotate and inspect the model below. Use this space to imagine your next creation.</p>
             <div class="row">
-                <div class="col-md-8 offset-md-2 text-center">
-                     <p class="lead mb-4">Use the canvas below to sketch your sewing ideas!</p>
-                    <!-- Placeholder for Mannequin/Canvas -->
-                    <div id="mannequin-area" style="height: 500px; border: 1px dashed #ccc; background-color: #f8f9fa; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-                        <span class="text-muted">Design Canvas Area (Interactive Tool Coming Soon!)</span>
+                <div class="col-12">
+                    <!-- Container for 3D Model Viewer -->
+                    <div id="model-viewer-container" style="width: 100%; height: 60vh; background-color: #e9ecef; border-radius: 8px; position: relative; overflow: hidden;">
+                        <!-- Canvas will be inserted here by Three.js -->
+                         <div id="loading-indicator" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2em; color: #6c757d;">Loading 3D Model...</div>
                     </div>
-                    <!-- Basic Tools Placeholder -->
-                    <div>
-                        <button class="btn btn-secondary me-2">Line Tool</button>
-                        <button class="btn btn-secondary me-2">Curve Tool</button>
-                        <button class="btn btn-secondary me-2">Color Picker</button>
-                        <button class="btn btn-danger">Clear Canvas</button>
-                    </div>
+                    <!-- Placeholder for potential future drawing tools -->
+                    <!-- <div class="text-center mt-4">
+                        <button class="btn btn-secondary me-2">Draw Tool</button>
+                        <button class="btn btn-secondary me-2">Fabric Picker</button>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -204,7 +227,7 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- Custom JS -->
-    <script src="js/script.js"></script>
+    <!-- Custom JS (Type module for Three.js imports) -->
+    <script type="module" src="js/script.js"></script>
 </body>
 </html> 
